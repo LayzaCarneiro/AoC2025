@@ -32,23 +32,36 @@ struct Day01: AdventDay {
 
     for v in entities {
       if v.dir == "L" {
-        i -= v.num + 100;
-
+        i = (i - v.num % 100 + 100) % 100
       } else {
-        i += v.num;
+        i = (i + v.num) % 100
       }
       
-      i %= 100;
       if i == 0 { counter += 1 }
     }
     
-    print(counter)
     return counter
   }
 
-//  // Replace this with your solution for the second part of the day's challenge.
-//  func part2() -> Any {
-//    // Sum the maximum entries in each set of data
-//    entities.map { $0.max() ?? 0 }.reduce(0, +)
-//  }
+  // Replace this with your solution for the second part of the day's challenge.
+  func part2() -> Any {
+    var counter = 0
+    var i = 50;
+
+    for v in entities {
+      if v.dir == "L" {
+        for _ in 0..<v.num {
+          i = (i - 1 + 100) % 100
+          if i == 0 { counter += 1 }
+        }
+      } else {
+        for _ in 0..<v.num {
+          i = (i + 1) % 100
+          if i == 0 { counter += 1 }
+        }
+      }
+    }
+    
+    return counter
+  }
 }
